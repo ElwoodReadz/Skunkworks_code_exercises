@@ -5,8 +5,27 @@ public class MyLinkedList
     // Create an empty linked list
     public MyLinkedList()
     {
+
     }
-    
+
+    private class Node
+    {
+        int Data;
+        Node next;
+
+        public Node(int d)
+        {
+            Data = d;
+            next = null;
+        }
+    }
+
+    public void insert (MyLinkedList list, int data)
+    {
+        Node new_node = new Node(data);
+        new_node.next = new_node;
+    }
+
     // Create a linked list that contains the data in the provided array
     public MyLinkedList(int[] initialData)
     {

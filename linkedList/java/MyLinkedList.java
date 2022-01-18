@@ -2,6 +2,7 @@
 // UT_MyLinkedList for testing.
 public class MyLinkedList
 {
+    Node Head;
     // Create an empty linked list
     public MyLinkedList()
     {
@@ -15,20 +16,15 @@ public class MyLinkedList
 
         public Node(int d)
         {
-            Data = d;
+            this.Data = d;
             next = null;
         }
-    }
-
-    public void insert (MyLinkedList list, int data)
-    {
-        Node new_node = new Node(data);
-        new_node.next = new_node;
     }
 
     // Create a linked list that contains the data in the provided array
     public MyLinkedList(int[] initialData)
     {
+
     }
     
     // Add a node to the start of the list
@@ -37,8 +33,19 @@ public class MyLinkedList
     }
     
     // Add a node at the provided index (such that LinkedList.get(index) == newValue after this call completes)
-    public void insert(int newValue, int index)
+    public void insert(int data, int index)
     {
+        Node new_node = new Node(data);
+        if (index == 0)
+        {
+            new_node.next = head;
+            head = new_node;
+        }
+        else
+        {
+            new_node.next = getNode(index-1).next;
+            getNode(index-1).next = new_node;
+        }
     }
     
     // Remove a node from the front of the list
@@ -57,10 +64,19 @@ public class MyLinkedList
     public void set(int newValue, int index)
     {
     }
-    
-    // Return the value held by the node at the specified index
+
     public int get(int index)
     {
-        return 0;
+        return getNode(index).Data;
+    }
+
+    public Node getNode(int index)
+    {
+        Node curNode = Head;
+        for(int i = 0; i < index; i++)
+        {
+            curNode = curNode.next;
+        }
+        return curNode;
     }
 }

@@ -24,7 +24,17 @@ public class MyLinkedList
     // Create a linked list that contains the data in the provided array
     public MyLinkedList(int[] initialData)
     {
-        
+        for (int i = 0; i < 3; i++)
+        {
+            if (i == 0)
+            {
+                push(initialData[i]);
+            }
+            else
+            {
+                insert(initialData[i], i);
+            }
+        }
     }
     
     // Add a node to the start of the list
@@ -43,19 +53,21 @@ public class MyLinkedList
         new_node.next = getNode(index-1).next;
         getNode(index-1).next = new_node;
     }
-    
+
     // Remove a node from the front of the list
     public int pop()
     {
+        int bye = Head.Data;
         Head = Head.next;
-        return Head.Data;
+        return bye;
     }
     
     // Remove the node at the specified index
     public int remove(int index)
     {
-        getNode(index - 1).next = getNode(index).next;
-        return getNode(index).Data;
+        int bye = getNode(index).Data;
+                getNode(index - 1).next = getNode(index).next;
+        return bye;
     }
     
     // Set the value of the node at the specified index

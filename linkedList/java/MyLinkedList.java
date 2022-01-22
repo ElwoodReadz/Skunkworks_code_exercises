@@ -13,6 +13,7 @@ public class MyLinkedList
     {
         int Data;
         Node next;
+        Node prev;
 
         public Node(int d)
         {
@@ -41,9 +42,14 @@ public class MyLinkedList
     public void push(int newValue)
     {
         Node new_node = new Node(newValue);
-        //newValue I think idk
         new_node.next = Head;
         Head = new_node;
+        if (Head != null)
+        {
+            Head.prev = new_node;
+            new_node.prev = null;
+            Head = new_node;
+        }
     }
     
     // Add a node at the provided index (such that LinkedList.get(index) == newValue after this call completes)
@@ -51,7 +57,9 @@ public class MyLinkedList
     {
         Node new_node = new Node(data);
         new_node.next = getNode(index-1).next;
+        new_node.prev = getNode(index-1);
         getNode(index-1).next = new_node;
+        getNode(index+1).prev = new_node;
     }
 
     // Remove a node from the front of the list
@@ -59,6 +67,7 @@ public class MyLinkedList
     {
         int bye = Head.Data;
         Head = Head.next;
+        Head.prev = null; //idk this
         return bye;
     }
     
@@ -66,7 +75,8 @@ public class MyLinkedList
     public int remove(int index)
     {
         int bye = getNode(index).Data;
-                getNode(index - 1).next = getNode(index).next;
+        getNode(index - 1).next = getNode(index).next;
+        getNode(index + 1).prev = getNode(index).prev;
         return bye;
     }
     

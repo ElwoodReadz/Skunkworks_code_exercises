@@ -2,7 +2,7 @@
 // UT_MyLinkedList for testing.
 public class MyLinkedList
 {
-    Node Head;
+    Node head;
     // Create an empty linked list
     public MyLinkedList()
     {
@@ -42,13 +42,13 @@ public class MyLinkedList
     public void push(int newValue)
     {
         Node new_node = new Node(newValue);
-        new_node.next = Head;
-        Head = new_node;
-        if (Head != null)
+        new_node.next = head;
+        head = new_node;
+        if (head != null)
         {
-            Head.prev = new_node;
+            head.prev = new_node;
             new_node.prev = null;
-            Head = new_node;
+            head = new_node;
         }
     }
     
@@ -59,15 +59,18 @@ public class MyLinkedList
         new_node.next = getNode(index-1).next;
         new_node.prev = getNode(index-1);
         getNode(index-1).next = new_node;
-        getNode(index+1).prev = new_node;
+        if (new_node.next != null)
+        {
+            getNode(index+1).prev = new_node;
+        } //brain farts! (called it)
     }
 
     // Remove a node from the front of the list
     public int pop()
     {
-        int bye = Head.Data;
-        Head = Head.next;
-        Head.prev = null; //idk this
+        int bye = head.Data;
+        head = head.next;
+        head.prev = null; //idk this
         return bye;
     }
     
@@ -76,7 +79,10 @@ public class MyLinkedList
     {
         int bye = getNode(index).Data;
         getNode(index - 1).next = getNode(index).next;
-        getNode(index + 1).prev = getNode(index).prev;
+        if (getNode(index).next != null)
+        {
+            getNode(index + 1).prev = getNode(index).prev;
+        }
         return bye;
     }
     
@@ -93,7 +99,7 @@ public class MyLinkedList
 
     public Node getNode(int index)
     {
-        Node curNode = Head;
+        Node curNode = head;
         for(int i = 0; i < index; i++)
         {
             curNode = curNode.next;
